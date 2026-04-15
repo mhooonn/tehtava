@@ -150,5 +150,38 @@ app.post('/api/games', (req,res) => {
     }
 });
 
+// UPDATE
+app.patch('/api/games/:id', (req,res) => {
+    const id = Number(req.params.id);
+
+    const game = games.find(game => game.id === id);
+
+    if (game) {
+        games.forEach(game => {
+            if (game.id===id){
+                game.name = req.body.name,
+                game.rating = req.body.rating,
+                game.releaseDate = req.body.releaseDate,
+                game.peakCount = req.body.peakCount
+            }
+        });
+
+        const updatedGame = {
+            id, //id: id,
+            name: req.body.name,
+            rating: req.body.rating,
+            releaseDate: req.body.releaseDate,
+            peakCount: req.body.peakCount
+        }
+
+        res.status(200).json(updatedGame);
+    }
+    else {
+        res.status(404).json({
+            msg: 'could not update the product'
+        })
+    }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
