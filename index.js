@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const path = require('path');
 
 // dummy database
 let games = [
@@ -63,6 +64,58 @@ app.get('/', (req,res) => {
         games: games,
         itemsTotal: games.length
     });
+});
+
+// GET ALL
+app.get('/api/games', (req,res) => {
+    res.status(200).json({
+        status: 'success',
+        results: games.length,
+        data: games
+    })
+});
+
+// GET ONE
+app.get('/api/games/:id', (req,res) => {
+
+    const id = Number(req.params.id);
+    const game = games.find(games => games.id === id);
+
+    if (game)
+    {
+        res.json(game);
+    }
+    else
+    {
+        res.status(404).json({
+            msg: 'not found'
+        })
+    }
+});
+
+// DELETE ONE
+app.delete('/api/games/:id', (req,res) => {
+    const idToRemove = Number(req.params.id);
+
+    // first check that the deleted product be found
+    const game = games.find(game => game.id === idToRemove);
+
+    if (game) {
+        games = games.filter(games =>games.id != idToRemove);
+        res.status(200).json({
+            id: idToRemove,
+            msg: 'resource deleted successfully'
+        });
+    }
+    else
+    {
+        res.status(404).json({
+            msg: 'could not find the product'
+        })
+    }
+
+    res.json(games);
+
 });
 
 
