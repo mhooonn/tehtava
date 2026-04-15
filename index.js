@@ -48,6 +48,9 @@ let games = [
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
 app.engine('handlebars', exphbs.engine({
     defaultLayout: 'main'
 }));
@@ -118,6 +121,34 @@ app.delete('/api/games/:id', (req,res) => {
 
 });
 
+// CREATE
+app.post('/api/games', (req,res) => {
+
+    if(req.body.name && req.body.releaseDate && req.body.rating && req.body.releaseDate && req.body.peakCount) {
+        const newID = games[games.length-1].id + 1;
+
+        const newGame = {
+            id: newID,
+            name: req.body.name,
+            rating: req.body.rating,
+            releaseDate: req.body.releaseDate,
+            peakCount: req.body.peakCount
+        }
+
+        games.push(newGame);
+
+        const url = `${req.protocol}://${req.get('host')}${req.originalUrl}${newID}`;
+
+        res.location(url);
+        res.status(201).json(newGame);
+    }
+    else 
+    {
+        res.status(400).json({
+            msg: 'additional data needed'
+        })
+    }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
