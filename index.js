@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars');
 // dummy database
 let games = [
     {
+        id: 1,
         name: 'Counter-Strike',
         rating: "5/5",
         image: 'cs.jpg',
@@ -11,6 +12,7 @@ let games = [
         peakCount: 1862531
     },
     {
+        id: 2,
         name: 'Apex Legends',
         rating: "4/5",
         image: 'apex.jpg',
@@ -18,6 +20,7 @@ let games = [
         peakCount: 624473
     },
     {
+        id: 3,
         name: 'Player Unknowns Battleground',
         rating: "3/5",
         image: 'pubg.jpg',
@@ -25,6 +28,7 @@ let games = [
         peakCount: 3257248
     },
     {
+        id: 4,
         name: 'Kingdom Come Deliverance 2',
         rating: "4.5/5",
         image: 'kcd2.png',
@@ -32,6 +36,7 @@ let games = [
         peakCount: 256206
     },
     {
+        id: 5,
         name: 'Call of duty',
         rating: "3/5",
         image: 'cod.png',
