@@ -1,1 +1,14 @@
 <h1>TOP 5 GAMES OAT</h1>
+
+{{! loop services array of objects}}
+{{#each games}}
+    <div class="card">
+        <img src="{{image}}" alt="picture">
+        <h2>{{this.name}}</h2>
+        <p>Rating: {{this.rating}}</p>
+        <p>Release date: {{this.releaseDate}}</p>
+        <p>All time peak player count on Steam: {{this.peakCount}}</p>
+    </div>
+{{/each}}
+
+<p class="small">items listed: {{itemsTotal}}</p>
